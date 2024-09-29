@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
 group = "net.cdx"
@@ -17,6 +18,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+    implementation("org.luaj:luaj-jse:3.0.1")
 }
 
 val targetJavaVersion = 21
@@ -34,6 +36,12 @@ tasks.withType<JavaCompile> {
 
     if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible) {
         options.release.set(targetJavaVersion)
+    }
+}
+
+tasks {
+    runServer {
+        minecraftVersion("1.21.1")
     }
 }
 
